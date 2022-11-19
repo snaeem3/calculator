@@ -13,6 +13,16 @@ const numDict = {
     "seven": 7,
     "eight": 8,
     "nine": 9,
+    0: "zero",
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
 }
 const divideZeroText = '😒';
 
@@ -54,26 +64,82 @@ const buttons = document.querySelectorAll('button');
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-    if (button.id === "clear") {
+    executeInput(button);
+    // if (button.id === "clear") {
+    //     resetCurrentNum();
+    //     prevNum = 0;
+    //     updateDisplay(0);
+    // }
+    // else if (button.id === "backspace") {
+    //     currentNum = backspace();
+    //     updateDisplay(currentNum);
+    // }
+    // else if (button.id === "plus-minus") {
+    //     currentNum = operate(currentNum,-1,"multiply");
+    //     updateDisplay(currentNum);
+    // }
+    // //if button is number increment current number and update display value
+    // else if (button.id in numDict) {
+    //     currentNum = updateCurrentNum(numDict[button.id]);
+    //     updateDisplay(currentNum);
+    // }
+    // // if operator is selected store current num into previous num and set current num to zero
+    // else if (button.className === "operator"){
+    //     //if current operator is not blank then operate on current values
+    //     if (currentOperator != ""){
+    //         prevNum = operate(prevNum,currentNum,currentOperator);
+    //         prevNum = Math.round(prevNum * 1000) / 1000;
+    //         updateDisplay(prevNum);
+    //     }
+    //     else {
+    //         prevNum = currentNum;
+    //     }
+    //     resetCurrentNum();
+    //     currentOperator = button.id;
+    // }
+    // else if (button.id === "equal" && currentOperator != ""){
+    //     updateDisplay(Math.round(operate(prevNum,currentNum,currentOperator) * 1000) / 1000);
+    //     prevNum = currentNum;
+    //     resetCurrentNum();
+    //     resetCurrentOperator();
+    // }
+
+  });
+});
+
+document.addEventListener('keydown', (event) => {
+    var name = event.key;
+    var code = event.code;
+
+    if (!isNaN(parseInt(name))){
+        // console.log(numDict[name]);
+        var buttonId = `#${numDict[name]}`;
+        // console.log(buttonId);
+        executeInput(document.querySelector(buttonId));
+    }
+  }, false);
+
+function executeInput(input) {
+    if (input.id === "clear") {
         resetCurrentNum();
         prevNum = 0;
         updateDisplay(0);
     }
-    else if (button.id === "backspace") {
+    else if (input.id === "backspace") {
         currentNum = backspace();
         updateDisplay(currentNum);
     }
-    else if (button.id === "plus-minus") {
+    else if (input.id === "plus-minus") {
         currentNum = operate(currentNum,-1,"multiply");
         updateDisplay(currentNum);
     }
     //if button is number increment current number and update display value
-    else if (button.id in numDict) {
-        currentNum = updateCurrentNum(numDict[button.id]);
+    else if (input.id in numDict) {
+        currentNum = updateCurrentNum(numDict[input.id]);
         updateDisplay(currentNum);
     }
     // if operator is selected store current num into previous num and set current num to zero
-    else if (button.className === "operator"){
+    else if (input.className === "operator"){
         //if current operator is not blank then operate on current values
         if (currentOperator != ""){
             prevNum = operate(prevNum,currentNum,currentOperator);
@@ -84,17 +150,15 @@ buttons.forEach((button) => {
             prevNum = currentNum;
         }
         resetCurrentNum();
-        currentOperator = button.id;
+        currentOperator = input.id;
     }
-    else if (button.id === "equal" && currentOperator != ""){
+    else if (input.id === "equal" && currentOperator != ""){
         updateDisplay(Math.round(operate(prevNum,currentNum,currentOperator) * 1000) / 1000);
         prevNum = currentNum;
         resetCurrentNum();
         resetCurrentOperator();
     }
-
-  });
-});
+}
 
 function updateCurrentNum(num) {
     let textNum = String(currentNum) + String(num);
