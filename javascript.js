@@ -53,9 +53,13 @@ const buttons = document.querySelectorAll('button');
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-    // console.log(button.id);
+    if (button.id === "clear") {
+        currentNum = 0;
+        prevNum = 0;
+        updateDisplay(0);
+    }
     //if button is number increment current number and update display value
-    if (button.id in numDict) {
+    else if (button.id in numDict) {
         currentNum = updateCurrentNum(numDict[button.id]);
         updateDisplay(currentNum);
     }
@@ -64,6 +68,7 @@ buttons.forEach((button) => {
         //if current operator is not blank then operate on current values
         if (currentOperator != ""){
             prevNum = operate(prevNum,currentNum,currentOperator);
+            prevNum = Math.round(prevNum * 1000) / 1000;
             updateDisplay(prevNum);
         }
         else {
@@ -72,8 +77,8 @@ buttons.forEach((button) => {
         currentNum = 0;
         currentOperator = button.id;
     }
-    else if (button.id === "equal"){
-        updateDisplay(operate(prevNum,currentNum,currentOperator));
+    else if (button.id === "equal" && currentOperator != ""){
+        updateDisplay(Math.round(operate(prevNum,currentNum,currentOperator) * 1000) / 1000);
         prevNum = currentNum;
         resetCurrentNum();
         resetCurrentOperator();
