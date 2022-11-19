@@ -20,8 +20,10 @@ body {
 
 #calc-body {
     margin-top: 16px;
-    border: ridge;
-    padding: 2px;
+    border: ridge 6px rgb(255, 255, 255);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 4px;
 }
 
 #display {

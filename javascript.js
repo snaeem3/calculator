@@ -14,6 +14,7 @@ const numDict = {
     "eight": 8,
     "nine": 9,
 }
+const divideZeroText = '😒';
 
 function add(num1,num2) {
     return num1 + num2;
@@ -109,8 +110,13 @@ function resetCurrentOperator() {
 }
 
 function updateDisplay(num) {
-    displayValue = num;
-    document.querySelector('#display').textContent = displayValue;
+    if (isNaN(num)) {
+        document.querySelector('#display').textContent = divideZeroText;
+    }
+    else{
+        displayValue = num;
+        document.querySelector('#display').textContent = String(displayValue);
+    }
 }
 
 function backspace() {
