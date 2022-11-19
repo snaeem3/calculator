@@ -58,6 +58,10 @@ buttons.forEach((button) => {
         prevNum = 0;
         updateDisplay(0);
     }
+    else if (button.id === "backspace") {
+        currentNum = backspace();
+        updateDisplay(currentNum);
+    }
     else if (button.id === "plus-minus") {
         currentNum = operate(currentNum,-1,"multiply");
         updateDisplay(currentNum);
@@ -92,7 +96,7 @@ buttons.forEach((button) => {
 });
 
 function updateCurrentNum(num) {
-    textNum = String(currentNum) + String(num);
+    let textNum = String(currentNum) + String(num);
     return parseInt(textNum);
 }
 
@@ -107,4 +111,12 @@ function resetCurrentOperator() {
 function updateDisplay(num) {
     displayValue = num;
     document.querySelector('#display').textContent = displayValue;
+}
+
+function backspace() {
+    if (String(Math.abs(currentNum)).length <= 1) { //Math.abs to handle negative values
+        return 0;
+    }
+    let textNum = String(currentNum).slice(0,-1);
+    return parseInt(textNum);
 }
