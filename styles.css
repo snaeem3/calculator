@@ -52,12 +52,22 @@ button {
     border: none;
 }
 
+button:hover {
+    background:rgb(226, 226, 226);
+}
+
 .operator {
     background: rgb(255, 60, 0);
+}
+.operator:hover {
+    background:rgb(253, 133, 96)
 }
 
 #equal {
     background:rgb(0, 119, 255);
+}
+#equal:hover {
+    background:rgb(97, 171, 255);
 }
 
 #clear {
