@@ -54,9 +54,13 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
     if (button.id === "clear") {
-        currentNum = 0;
+        resetCurrentNum();
         prevNum = 0;
         updateDisplay(0);
+    }
+    else if (button.id === "plus-minus") {
+        currentNum = operate(currentNum,-1,"multiply");
+        updateDisplay(currentNum);
     }
     //if button is number increment current number and update display value
     else if (button.id in numDict) {
@@ -74,7 +78,7 @@ buttons.forEach((button) => {
         else {
             prevNum = currentNum;
         }
-        currentNum = 0;
+        resetCurrentNum();
         currentOperator = button.id;
     }
     else if (button.id === "equal" && currentOperator != ""){
