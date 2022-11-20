@@ -61,61 +61,40 @@ function operate(num1,num2,operator) {
 }
 
 const buttons = document.querySelectorAll('button');
-
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
     executeInput(button);
-    // if (button.id === "clear") {
-    //     resetCurrentNum();
-    //     prevNum = 0;
-    //     updateDisplay(0);
-    // }
-    // else if (button.id === "backspace") {
-    //     currentNum = backspace();
-    //     updateDisplay(currentNum);
-    // }
-    // else if (button.id === "plus-minus") {
-    //     currentNum = operate(currentNum,-1,"multiply");
-    //     updateDisplay(currentNum);
-    // }
-    // //if button is number increment current number and update display value
-    // else if (button.id in numDict) {
-    //     currentNum = updateCurrentNum(numDict[button.id]);
-    //     updateDisplay(currentNum);
-    // }
-    // // if operator is selected store current num into previous num and set current num to zero
-    // else if (button.className === "operator"){
-    //     //if current operator is not blank then operate on current values
-    //     if (currentOperator != ""){
-    //         prevNum = operate(prevNum,currentNum,currentOperator);
-    //         prevNum = Math.round(prevNum * 1000) / 1000;
-    //         updateDisplay(prevNum);
-    //     }
-    //     else {
-    //         prevNum = currentNum;
-    //     }
-    //     resetCurrentNum();
-    //     currentOperator = button.id;
-    // }
-    // else if (button.id === "equal" && currentOperator != ""){
-    //     updateDisplay(Math.round(operate(prevNum,currentNum,currentOperator) * 1000) / 1000);
-    //     prevNum = currentNum;
-    //     resetCurrentNum();
-    //     resetCurrentOperator();
-    // }
-
   });
 });
 
 document.addEventListener('keydown', (event) => {
-    var name = event.key;
+    var keyName = event.key;
     var code = event.code;
+    console.log(keyName);
 
-    if (!isNaN(parseInt(name))){
-        // console.log(numDict[name]);
-        var buttonId = `#${numDict[name]}`;
+    if (!isNaN(parseInt(keyName))){
+        // console.log(numDict[keyName]);
+        var buttonId = `#${numDict[keyName]}`;
         // console.log(buttonId);
         executeInput(document.querySelector(buttonId));
+    }
+    else if (keyName === 'Backspace') {
+        executeInput(document.querySelector("#backspace"));
+    }
+    else if (keyName === 'Enter'){
+        executeInput(document.querySelector('#equal'));
+    }
+    else if (keyName === '+'){
+        executeInput(document.querySelector('#add'));
+    }
+    else if (keyName === '-'){
+        executeInput(document.querySelector('#subtract'));
+    }
+    else if (keyName === '*') {
+        executeInput(document.querySelector('#multiply'));
+    }
+    else if (keyName === '/') {
+        executeInput(document.querySelector('#divide'));
     }
   }, false);
 
